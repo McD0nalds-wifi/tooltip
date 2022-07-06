@@ -1,0 +1,187 @@
+// SECTION children
+.children {
+    cursor: pointer;
+}
+// !SECTION children
+
+// SECTION tooltip
+.tooltip {
+    $tooltip: &;
+
+    position: absolute;
+    width: max-content;
+    min-width: 100px;
+    opacity: 0;
+    transition-property: opacity, transform;
+    transform-origin: center center;
+
+    // tooltip::after
+    &::after {
+        border: solid transparent;
+        content: '';
+        height: 0;
+        width: 0;
+        position: absolute;
+        border-color: rgba(255, 0, 0, 0);
+        border-width: 6px;
+    }
+
+    @mixin tooltipPosition($parent, $arrowColor) {
+        &_Top {
+            @extend #{$parent};
+            transform: translate(-50%, -15px) scale(0);
+
+            &:after {
+                top: 100%;
+                left: 50%;
+                border-top-color: $arrowColor;
+                margin-left: -6px;
+            }
+        }
+        &_Bottom {
+            @extend #{$parent};
+            transform: translate(-50%, 15px) scale(0);
+
+            &::after {
+                bottom: 100%;
+                left: 50%;
+                border-bottom-color: $arrowColor;
+                margin-left: -6px;
+            }
+        }
+        &_Left {
+            @extend #{$parent};
+            transform: translate(-15px, -50%) scale(0);
+
+            &::after {
+                top: 50%;
+                left: 100%;
+                border-left-color: $arrowColor;
+                margin-top: -6px;
+            }
+        }
+        &_Right {
+            @extend #{$parent};
+            transform: translate(15px, -50%) scale(0);
+
+            &::after {
+                top: 50%;
+                right: 100%;
+                border-right-color: $arrowColor;
+                margin-top: -6px;
+            }
+        }
+        &_TopLeft {
+            @extend #{$parent};
+            transform: translate(0, -15px) scale(0);
+
+            &::after {
+                top: 100%;
+                left: 0%;
+                border-top-color: $arrowColor;
+                margin-left: 10px;
+            }
+        }
+        &_TopRight {
+            @extend #{$parent};
+            transform: translate(-100%, -15px) scale(0);
+
+            &::after {
+                top: 100%;
+                right: 0%;
+                border-top-color: $arrowColor;
+                margin-right: 10px;
+            }
+        }
+        &_BottomLeft {
+            @extend #{$parent};
+            transform: translate(0, 15px) scale(0);
+
+            &::after {
+                bottom: 100%;
+                left: 0%;
+                border-bottom-color: $arrowColor;
+                margin-left: 10px;
+            }
+        }
+        &_BottomRight {
+            @extend #{$parent};
+            transform: translate(-100%, 15px) scale(0);
+
+            &::after {
+                bottom: 100%;
+                right: 0%;
+                border-bottom-color: $arrowColor;
+                margin-right: 10px;
+            }
+        }
+        &_LeftTop {
+            @extend #{$parent};
+            transform: translate(-15px, 0) scale(0);
+
+            &::after {
+                top: 10px;
+                left: 100%;
+                border-left-color: $arrowColor;
+            }
+        }
+        &_LeftBottom {
+            @extend #{$parent};
+            transform: translate(-15px, -100%) scale(0);
+
+            &::after {
+                bottom: 10px;
+                left: 100%;
+                border-left-color: $arrowColor;
+            }
+        }
+        &_RightTop {
+            @extend #{$parent};
+            transform: translate(15px, 0) scale(0);
+
+            &::after {
+                top: 10px;
+                right: 100%;
+                border-right-color: $arrowColor;
+            }
+        }
+        &_RightBottom {
+            @extend #{$parent};
+            transform: translate(15px, -100%) scale(0);
+
+            &::after {
+                bottom: 10px;
+                right: 100%;
+                border-right-color: $arrowColor;
+            }
+        }
+    }
+
+    // tooltipDefault
+    &Default {
+        @extend #{$tooltip};
+        $default: #{$tooltip}Default;
+
+        @include tooltipPosition($default, rgba(23, 23, 37, 0.95));
+
+        padding: 16px;
+        color: #ffffff;
+        background: rgba(23, 23, 37, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+    }
+
+    // tooltipPopup
+    &Popup {
+        @extend #{$tooltip};
+        $popup: #{$tooltip}Popup;
+
+        @include tooltipPosition($popup, transparent);
+
+        background-color: #ffffff;
+        box-shadow: 0px 6px 10px rgb(31 31 34 / 25%);
+        border-radius: 8px;
+        padding: 8px 10px;
+    }
+}
+// !SECTION tooltip
